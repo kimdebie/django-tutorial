@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
-from .models import Choice, Question
+from .models import Choice, Question, Voter
 
 
 class IndexView(generic.ListView):
@@ -35,6 +35,21 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+
+class VotersView(generic.ListView):
+    model = Voter
+    template_name = 'polls/voters.html'
+
+
+def addvoter(request):
+
+    v = Voter(firstname=request.POST['fname'], lastname=request.POST['lname'])
+    v.save()
+
+    voters = Voter.objects.all()
+    context = {'voters_list': voters}
+    #return HttpResponseRedirect(reverse('polls:voters', args=()))
+    return render(request, 'polls/voters.html', context)
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

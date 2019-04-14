@@ -1,0 +1,8 @@
+{% csrf_token %}
+
+<h1>Voters</h1>
+<ul>
+{% for voter in voters_list %}
+    <li>{{ voter }}</li>
+{% endfor %}
+</ul>

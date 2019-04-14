@@ -11,3 +11,16 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+
+
+We'd like to know who voted here!
+
+<form class="" action="{% url 'polls:addvoter' %}" method="post">
+
+  {% csrf_token %}
+
+First name: <input type="text" name="fname"><br>
+Last name: <input type="text" name="lname"><br>
+
+<input type="submit" value="Submit">
+</form>
